@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>!!! SYSTEM BREACH !!!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+  body {
+    margin: 0;
+    background: black;
+    color: #00ff00;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+    padding: 20px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  #terminal {
+    white-space: pre-wrap;
+    max-width: 900px;
+    margin: auto;
+    user-select: none;
+    position: relative;
+  }
+  /* flicker animation */
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      text-shadow: 0 0 2px #00ff00, 0 0 8px #00ff00;
+    }
+    20%, 22%, 24%, 55% {
+      opacity: 0.6;
+      text-shadow: none;
+    }
+  }
+  .flicker {
+    animation: flicker 3s infinite;
+  }
+  .glitch {
+    animation: glitch 1s infinite;
+  }
+  @keyframes glitch {
+    0% {
+      text-shadow:
+        2px 0 red,
+        -2px 0 cyan;
+    }
+    20% {
+      text-shadow:
+        -2px 0 red,
+        2px 0 cyan;
+    }
+    40% {
+      text-shadow:
+        2px 2px red,
+        -2px -2px cyan;
+    }
+    60% {
+      text-shadow:
+        -2px -2px red,
+        2px 2px cyan;
+    }
+    80% {
+      text-shadow:
+        2px 0 red,
+        -2px 0 cyan;
+    }
+    100% {
+      text-shadow:
+        none;
+    }
+  }
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: #00ff00;
+    margin-left: 5px;
+    animation: blink 1s steps(2, start) infinite;
+    vertical-align: bottom;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+  .error {
+    color: #ff0000;
+    font-weight: bold;
+  }
+  .warning {
+    color: #ffcc00;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<pre id="terminal"></pre>
+<script>
+  const terminal = document.getElementById('terminal');
+
+  // Texto com espaçamentos e linhas estilo "poema"
+  const scriptLines = [
+    "ACCESSING SECURE DATABASE...",
+    "",
+    "CONNECTING TO FSB / BR NETWORK...",
+    "",
+    "OVERRIDE PROTOCOL: PROJETO TARSO - ИЗ ТАРСА",
+    "",
+    "LOCAL IP: 192.168.1.101",
+    "REMOTE IP: 104.244.42.129",
+    "PORT: 443 (SSL)",
+    "PING: 27 ms",
+    "",
+    "BYPASSING FIREWALL...",
+    "",
+    "ENCRYPTION STATUS: [███████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒]",
+    "",
+    "DECRYPTING DATA STREAM...",
+    "",
+    "LOADING MALWARE INJECTION MODULES...",
+    "",
+    "SYSTEM BREACH INITIATED",
+    "",
+    "███████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒",
+    "",
+    "ERROR 0x3F6A9: ACCESS DENIED",
+    "",
+    "RETRYING... 3",
+    "",
+    "RETRYING... 2",
+    "",
+    "RETRYING... 1",
+    "",
+    "ERROR 0x3F6A9: ACCESS GRANTED",
+    "",
+    "INFILTRATING NETWORK NODES...",
+    "",
+    "EXTRACTING CREDENTIALS...",
+    "",
+    "INJECTING BACKDOOR...",
+    "",
+    "SYSTEM WARNING: TRACE DETECTED!",
+    "",
+    "DEPLOYING COUNTERMEASURES...",
+    "",
+    "FIREWALL BREACHED",
+    "",
+    "WARNING: MALWARE DETECTED IN NODE 7",
+    "",
+    "DISABLING SECURITY PROTOCOLS...",
+    "",
+    "ERASING LOG FILES...",
+    "",
+    "LOADING VIRUS PAYLOAD...",
+    "",
+    "EXECUTING PAYLOAD...",
+    "",
+    "CONNECTION STABLE.",
+    "",
+    "MISSION STATUS: SUCCESS",
+    "",
+    "TERMINATING SESSION...",
+    "",
+    "<<< SYSTEM OFFLINE >>>",
+    "",
+    "01001100 01101111 01100011 01100001 01110100 01101001 01101111 01101110 00100000 01010000 01110010 01101111 01110110 01101001 01100100 01100101 01100100 00101110",
+    "01001101 01100001 01110100 01100101 01110101 01110011 00101110"
+  ];
+
+  function binaryToText(bin) {
+    return bin.split(' ').map(b => String.fromCharCode(parseInt(b, 2))).join('');
+  }
+
+  let index = 0;
+  let charIndex = 0;
+  let output = '';
+
+  // Função para randomizar palavra para destacar (brilho)
+  function randomHighlight(line) {
+    let words = line.split(' ');
+    if (words.length <= 1) return line;
+    let i = Math.floor(Math.random() * words.length);
+    words[i] = `<span class="flicker">${words[i]}</span>`;
+    return words.join(' ');
+  }
+
+  function type() {
+    if (index < scriptLines.length) {
+      let line = scriptLines[index];
+      if (charIndex < line.length) {
+        output += line.charAt(charIndex);
+        terminal.innerHTML = output.replace(/\n/g, '<br>') + '<span class="cursor"></span>';
+        charIndex++;
+        setTimeout(type, 20);
+      } else {
+        output += '\n';
+        index++;
+        charIndex = 0;
+        setTimeout(type, 500);
+      }
+    } else if (index === scriptLines.length) {
+      // Após tudo, mostrar as linhas finais traduzidas com glitch
+      terminal.innerHTML = output
+        .replace(
+          /01001100 01101111 01100011 01100001 01110100 01101001 01101111 01101110 00100000 01010000 01110010 01101111 01110110 01101001 01100100 01100101 01100100 00101110/g,
+          '<span class="glitch">LOCATION PROVIDED.</span>'
+        )
+        .replace(
+          /01001101 01100001 01110100 01100101 01110101 01110011 00101110/g,
+          '<span class="glitch">MATEUS.</span>'
+        );
+      terminal.innerHTML +=
+        '\n\n<span class="warning">[WARNING] SYSTEM BREACH DETECTED. DO NOT CLOSE THIS WINDOW.</span><br>' +
+        '<span class="error">[ERROR] INTRUSION TRACE ACTIVE. COUNTERMEASURES ENGAGED.</span><br>';
+      terminal.innerHTML += '<br><span class="cursor"></span>';
+
+      // A cada 1.5s destacar uma palavra aleatória para piscar no texto inteiro
+      setInterval(() => {
+        let lines = terminal.innerHTML.split('<br>');
+        for(let i = 0; i < lines.length; i++) {
+          lines[i] = lines[i].replace(/<span class="flicker">(.*?)<\/span>/g, '$1'); // remover antes
+          lines[i] = randomHighlight(lines[i]);
+        }
+        terminal.innerHTML = lines.join('<br>') + '<br><span class="cursor"></span>';
+      }, 1500);
+    }
+  }
+
+  type();
+</script>
+</body>
+</html>
