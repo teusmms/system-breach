@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -92,6 +92,9 @@
     color: #ffcc00;
     font-weight: bold;
   }
+  .white-text {
+    color: white;
+  }
 </style>
 </head>
 <body>
@@ -101,6 +104,10 @@
 
   // Texto com espaçamentos e linhas estilo "poema"
   const scriptLines = [
+    "%cАпокалипсис 21:8%c",
+    "Но боящиеся и неверные, и скверные, и убийцы, и любодеи, и волшебники, и идолослужители, и все лжецы —",
+    "их часть в озере, горящем огнём и серою, которое есть вторая смерть.",
+    "",
     "ACCESSING SECURE DATABASE...",
     "",
     "CONNECTING TO FSB / BR NETWORK...",
@@ -168,15 +175,10 @@
     "01001101 01100001 01110100 01100101 01110101 01110011 00101110"
   ];
 
-  function binaryToText(bin) {
-    return bin.split(' ').map(b => String.fromCharCode(parseInt(b, 2))).join('');
-  }
-
   let index = 0;
   let charIndex = 0;
   let output = '';
 
-  // Função para randomizar palavra para destacar (brilho)
   function randomHighlight(line) {
     let words = line.split(' ');
     if (words.length <= 1) return line;
@@ -188,6 +190,17 @@
   function type() {
     if (index < scriptLines.length) {
       let line = scriptLines[index];
+
+      // Para as 3 primeiras linhas da passagem, exibe em branco
+      if (index <= 2) {
+        terminal.innerHTML = output + '<span style="color:white; font-family: monospace;">' + line + '</span><span class="cursor"></span>';
+        output += line + '\n';
+        charIndex = line.length;
+        index++;
+        setTimeout(type, 500);
+        return;
+      }
+
       if (charIndex < line.length) {
         output += line.charAt(charIndex);
         terminal.innerHTML = output.replace(/\n/g, '<br>') + '<span class="cursor"></span>';
@@ -200,7 +213,6 @@
         setTimeout(type, 500);
       }
     } else if (index === scriptLines.length) {
-      // Após tudo, mostrar as linhas finais traduzidas com glitch
       terminal.innerHTML = output
         .replace(
           /01001100 01101111 01100011 01100001 01110100 01101001 01101111 01101110 00100000 01010000 01110010 01101111 01110110 01101001 01100100 01100101 01100100 00101110/g,
@@ -215,11 +227,10 @@
         '<span class="error">[ERROR] INTRUSION TRACE ACTIVE. COUNTERMEASURES ENGAGED.</span><br>';
       terminal.innerHTML += '<br><span class="cursor"></span>';
 
-      // A cada 1.5s destacar uma palavra aleatória para piscar no texto inteiro
       setInterval(() => {
         let lines = terminal.innerHTML.split('<br>');
         for(let i = 0; i < lines.length; i++) {
-          lines[i] = lines[i].replace(/<span class="flicker">(.*?)<\/span>/g, '$1'); // remover antes
+          lines[i] = lines[i].replace(/<span class="flicker">(.*?)<\/span>/g, '$1');
           lines[i] = randomHighlight(lines[i]);
         }
         terminal.innerHTML = lines.join('<br>') + '<br><span class="cursor"></span>';
