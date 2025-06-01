@@ -23,7 +23,6 @@
     user-select: none;
     position: relative;
   }
-  /* flicker animation */
   @keyframes flicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
       opacity: 1;
@@ -92,22 +91,21 @@
     color: #ffcc00;
     font-weight: bold;
   }
-  .white-text {
-    color: white;
-  }
 </style>
 </head>
 <body>
+
+<!-- Versículo em russo + português -->
+<div style="color: white; margin-bottom: 20px;">
+  <p>Боязливых же и неверных, и скверных, и убийц, и любодеев, и чародеев, и идолослужителей, и всех лжецов — участь в озере, горящем огнём и серою. Это смерть вторая.</p>
+  <p>Mas, quanto aos covardes, aos incrédulos, aos abomináveis, aos assassinos, aos impuros, aos feiticeiros, aos idólatras e a todos os mentirosos, a parte deles será no lago que arde com fogo e enxofre, que é a segunda morte.</p>
+</div>
+
 <pre id="terminal"></pre>
 <script>
   const terminal = document.getElementById('terminal');
 
-  // Texto com espaçamentos e linhas estilo "poema"
   const scriptLines = [
-    "%cАпокалипсис 21:8%c",
-    "Но боящиеся и неверные, и скверные, и убийцы, и любодеи, и волшебники, и идолослужители, и все лжецы —",
-    "их часть в озере, горящем огнём и серою, которое есть вторая смерть",
-    "",
     "ACCESSING SECURE DATABASE...",
     "",
     "CONNECTING TO FSB / BR NETWORK...",
@@ -121,7 +119,7 @@
     "",
     "BYPASSING FIREWALL...",
     "",
-    "ENCRYPTION STATUS: [███████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒]",
+    "ENCRYPTION STATUS: [███████████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒] ",
     "",
     "DECRYPTING DATA STREAM...",
     "",
@@ -175,6 +173,10 @@
     "01001101 01100001 01110100 01100101 01110101 01110011 00101110"
   ];
 
+  function binaryToText(bin) {
+    return bin.split(' ').map(b => String.fromCharCode(parseInt(b, 2))).join('');
+  }
+
   let index = 0;
   let charIndex = 0;
   let output = '';
@@ -190,17 +192,6 @@
   function type() {
     if (index < scriptLines.length) {
       let line = scriptLines[index];
-
-      // Para as 3 primeiras linhas da passagem, exibe em branco
-      if (index <= 2) {
-        terminal.innerHTML = output + '<span style="color:white; font-family: monospace;">' + line + '</span><span class="cursor"></span>';
-        output += line + '\n';
-        charIndex = line.length;
-        index++;
-        setTimeout(type, 500);
-        return;
-      }
-
       if (charIndex < line.length) {
         output += line.charAt(charIndex);
         terminal.innerHTML = output.replace(/\n/g, '<br>') + '<span class="cursor"></span>';
